@@ -18,6 +18,18 @@ namespace ExemploApiCatalogoJogos.Services
         {
             _jogoRepository = jogoRepository;
         }
+        public async Task<List<JogoViewModel>> ObterPorProdutora(string produtora)
+        {
+            var jogos = await _jogoRepository.ObterPorProdutora(produtora);
+
+            return jogos.Select(jogo => new JogoViewModel
+            {
+                Id = jogo.Id,
+                Nome = jogo.Nome,
+                Produtora = jogo.Produtora,
+                Preco = jogo.Preco
+            }).ToList();
+        }
 
         public async Task<List<JogoViewModel>> Obter(int pagina, int quantidade)
         {
@@ -114,5 +126,6 @@ namespace ExemploApiCatalogoJogos.Services
         {
             _jogoRepository?.Dispose();
         }
+
     }
 }

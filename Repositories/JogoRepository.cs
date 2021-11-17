@@ -23,6 +23,11 @@ namespace ExemploApiCatalogoJogos.Repositories
             return Task.FromResult(jogos.Values.Skip((pagina - 1) * quantidade).Take(quantidade).ToList());
         }
 
+        public Task<List<Jogo>> ObterPorProdutora(string produtora)
+        {
+            return Task.FromResult(jogos.Values.Where(jogo => jogo.Produtora.Equals(produtora)).ToList());
+        }
+
         public Task<Jogo> Obter(Guid id)
         {
             if (!jogos.ContainsKey(id))

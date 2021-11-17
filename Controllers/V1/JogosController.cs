@@ -42,6 +42,24 @@ namespace ExemploApiCatalogoJogos.Controllers.V1
 
             return Ok(jogos);
         }
+        
+        /// <summary>
+        /// Buscar um jogo pela sua Produtora
+        /// </summary>
+        /// <param name="produtora">Id do jogo buscado</param>
+        /// <response code="200">Retorna o jogo filtrado</response>
+        /// <response code="204">Caso não haja jogo com este id</response>
+        [HttpGet("{produtora}")]
+        public async Task<ActionResult<IEnumerable<JogoViewModel>>> ObterPorProdutora([FromRoute] string produtora)
+        {
+            var jogos = await _jogoService.ObterPorProdutora(produtora);
+
+            if (jogos.Count == 0)
+                return NoContent();
+
+            return Ok(jogos);
+        }
+
 
         /// <summary>
         /// Buscar um jogo pelo seu Id
